@@ -206,6 +206,14 @@ app.get('/api/tasks', requireAuth, async (req, res) => {
     }
 });
 
+//app.get to give info about api 
+app.get('/api/info', (req, res) => {
+    res.json({
+        app: 'Task Management API',
+        version: '1.0.0',
+    });
+});
+
 // GET /api/tasks/:id - Get single task
 app.get('/api/tasks/:id', requireAuth, async (req, res) => {
     try {
@@ -332,6 +340,9 @@ app.use((err, req, res, next) => {
         message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
     });
 });
+
+const cors = require('cors');
+app.use(cors());
 
 // 404 handler
 app.use((req, res) => {
